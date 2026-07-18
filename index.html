@@ -60,6 +60,56 @@
       `;
       document.head.appendChild(style);
     }
+
+    // Dynamic oEmbed / Iframely / Open Graph metadata generation for Canva embed compatibility
+    (function() {
+      const currentUrl = window.location.href;
+      
+      // Iframely Discovery Link
+      const iframelyLink = document.createElement('link');
+      iframelyLink.rel = 'iframely';
+      iframelyLink.type = 'text/html';
+      iframelyLink.href = currentUrl;
+      iframelyLink.setAttribute('media', '(aspect-ratio: 16/9)');
+      document.head.appendChild(iframelyLink);
+
+      // Open Graph Video/Player tags
+      const metaOgType = document.createElement('meta');
+      metaOgType.setAttribute('property', 'og:type');
+      metaOgType.setAttribute('content', 'video.other');
+      document.head.appendChild(metaOgType);
+
+      const metaOgVideo = document.createElement('meta');
+      metaOgVideo.setAttribute('property', 'og:video');
+      metaOgVideo.setAttribute('content', currentUrl);
+      document.head.appendChild(metaOgVideo);
+
+      const metaOgVideoType = document.createElement('meta');
+      metaOgVideoType.setAttribute('property', 'og:video:type');
+      metaOgVideoType.setAttribute('content', 'text/html');
+      document.head.appendChild(metaOgVideoType);
+
+      // Twitter Player Card tags
+      const metaTwitterCard = document.createElement('meta');
+      metaTwitterCard.setAttribute('name', 'twitter:card');
+      metaTwitterCard.setAttribute('content', 'player');
+      document.head.appendChild(metaTwitterCard);
+
+      const metaTwitterPlayer = document.createElement('meta');
+      metaTwitterPlayer.setAttribute('name', 'twitter:player');
+      metaTwitterPlayer.setAttribute('content', currentUrl);
+      document.head.appendChild(metaTwitterPlayer);
+
+      const metaTwitterWidth = document.createElement('meta');
+      metaTwitterWidth.setAttribute('name', 'twitter:player:width');
+      metaTwitterWidth.setAttribute('content', '600');
+      document.head.appendChild(metaTwitterWidth);
+
+      const metaTwitterHeight = document.createElement('meta');
+      metaTwitterHeight.setAttribute('name', 'twitter:player:height');
+      metaTwitterHeight.setAttribute('content', '400');
+      document.head.appendChild(metaTwitterHeight);
+    })();
   </script>
 </head>
 <body class="bg-[#FCFBFA] text-[#2C2520] font-['Montserrat'] min-h-screen antialiased flex flex-col justify-between">
@@ -383,6 +433,7 @@
             <li>Configure your wedding title, time offset, styles, and typography.</li>
             <li>Click <strong class="text-[#2C2520]">Generate Canva Embed Link</strong> below the customizer.</li>
             <li>Copy the generated custom widget URL.</li>
+            <li><strong class="text-amber-600">Important:</strong> Ensure you copy the generated URL from the text block. Do not paste the base editor URL into Canva.</li>
             <li>In Canva, go to <strong class="text-[#2C2520]">Apps</strong> &rarr; search <strong class="text-[#2C2520]">Embeds</strong> &rarr; Paste your link.</li>
             <li>Resize the iframe box container: it responds dynamically without borders or background clipping.</li>
           </ol>
